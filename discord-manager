@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# GitHub: https://github.com/hafiz-muhammad
+
+# tput colors
+RED="$(tput bold setaf 1)"
+GREEN="$(tput bold setaf 2)"
+BLUE="$(tput bold setaf 4)"
+MAGENTA="$(tput setaf 5)"
+RESET="$(tput sgr0)"
+
+menu() {
+echo -ne "
+${GREEN}1)${RESET} ${BLUE}Install/Update Discord${RESET}
+${GREEN}2)${RESET} ${BLUE}Uninstall Discord${RESET}
+${GREEN}3)${RESET} ${BLUE}Clear Discord Cache${RESET}
+${GREEN}4)${RESET} ${RED}Exit${RESET}
+${MAGENTA}\nEnter an option between 1 and 4:${RESET} "
+    read opts
+
+    if ! [[ $opts =~ ^[1-4]$ ]]; then
+	 echo "${RED}Invalid option.${RESET}" 
+	 menu
+         return
+    fi
+		
+    case $opts in
+    "1")
+        cd ~/Downloads
+        wget -O discord.tar.gz "https://discord.com/api/download?platform=linux&format=tar.gz"
+        sudo tar -xvzf discord.tar.gz -C /opt
+        sudo ln -sf /opt/Discord/Discord /usr/bin/Discord
+        sudo cp -r /opt/Discord/discord.desktop /usr/share/applications
+        sudo sed -i 's*Exec=/usr/share/discord/Discord*Exec=/usr/bin/Discord*g' /usr/share/applications/discord.desktop
+        sudo sed -i 's*Icon=discord*Icon=/opt/Discord/discord.png*g' /usr/share/applications/discord.desktop
+        rm -rf ~/Downloads/discord.tar.gz
+        exec "$0"
+        ;;
+    "2")
+        rm -rf ~/.config/discord
+        sudo rm -rf /opt/Discord
+        sudo rm -rf /usr/bin/Discord
+        sudo rm -rf /usr/share/applications/discord.desktop
+        exec "$0"
+        ;;
+    "3")
+        rm -rf ~/.config/discord/Cache
+        rm -rf ~/.config/discord/Code\ Cache
+        rm -rf ~/.config/discord/GPUCache
+        exec "$0"
+        ;;
+    "4")
+        exit
+        ;;
+
+    esac
+}
+
+menu
