@@ -1,3 +1,5 @@
+![screenshot](/screenshots/screenshot.png)
+
 **Steps to make the script executable:**
 
 1. Move the discord-manager file to ```~/.local/bin/```:
