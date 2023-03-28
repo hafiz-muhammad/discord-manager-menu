@@ -10,6 +10,7 @@ MAGENTA="$(tput setaf 5)"
 RESET="$(tput sgr0)"
 
 menu() {
+# Display menu options in color and prompts the user for input.
 echo -ne "
 ${GREEN}1)${RESET} ${BLUE}Install/Update Discord${RESET}
 ${GREEN}2)${RESET} ${BLUE}Uninstall Discord${RESET}
@@ -17,7 +18,7 @@ ${GREEN}3)${RESET} ${BLUE}Clear Discord Cache${RESET}
 ${GREEN}4)${RESET} ${RED}Exit${RESET}
 ${MAGENTA}\nEnter an option between 1 and 4:${RESET} "
     read opts
-
+    # Check for invalid user input and returns to menu.
     if ! [[ $opts =~ ^[1-4]$ ]]; then
 	 echo "${RED}Invalid option.${RESET}" 
 	 menu
@@ -26,6 +27,7 @@ ${MAGENTA}\nEnter an option between 1 and 4:${RESET} "
 		
     case $opts in
     "1")
+	# Install/Update Discord
         cd ~/Downloads
         wget -O discord.tar.gz "https://discord.com/api/download?platform=linux&format=tar.gz"
         sudo tar -xvzf discord.tar.gz -C /opt
@@ -37,6 +39,7 @@ ${MAGENTA}\nEnter an option between 1 and 4:${RESET} "
         exec "$0"
         ;;
     "2")
+    	# Uninstall Discord
         rm -rf ~/.config/discord
         sudo rm -rf /opt/Discord
         sudo rm -rf /usr/bin/Discord
@@ -44,12 +47,14 @@ ${MAGENTA}\nEnter an option between 1 and 4:${RESET} "
         exec "$0"
         ;;
     "3")
+    	# Clear Discord cache
         rm -rf ~/.config/discord/Cache
         rm -rf ~/.config/discord/Code\ Cache
         rm -rf ~/.config/discord/GPUCache
         exec "$0"
         ;;
     "4")
+    	# Exit the script
         exit
         ;;
 
