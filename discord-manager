@@ -16,7 +16,7 @@ ${GREEN}1)${RESET} ${BLUE}Install/Update Discord${RESET}
 ${GREEN}2)${RESET} ${BLUE}Uninstall Discord${RESET}
 ${GREEN}3)${RESET} ${BLUE}Clear Discord Cache${RESET}
 ${GREEN}4)${RESET} ${RED}Exit${RESET}
-${MAGENTA}\nEnter an option between 1 and 4:${RESET} "
+${MAGENTA}\nSelect an option (1-4):${RESET} "
     read opts
     # Check for invalid user input and returns to menu.
     if ! [[ $opts =~ ^[1-4]$ ]]; then
