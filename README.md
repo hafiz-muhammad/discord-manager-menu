@@ -3,12 +3,12 @@
 **Steps to make the script executable:**
 
 1. Move the discord-manager file to ```~/.local/bin/```:
-```
+```console
 mv discord-manager ~/.local/bin/
 ```
 
 2. Make the script executable:
-```
+```console
 chmod +x ~/.local/bin/discord-manager
 ```
 
